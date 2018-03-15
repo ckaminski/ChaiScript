@@ -196,17 +196,18 @@ else()
   set(READLINE_FLAG)
 endif()
 
-if(CMAKE_COMPILER_IS_GNUCC)
-  execute_process(COMMAND ${CMAKE_C_COMPILER} -dumpversion OUTPUT_VARIABLE GCC_VERSION)
+# Delete - Use Hunter/polly toolchains instead
+#if(CMAKE_COMPILER_IS_GNUCC)
+#  execute_process(COMMAND ${CMAKE_C_COMPILER} -dumpversion OUTPUT_VARIABLE GCC_VERSION)
 
-  if(GCC_VERSION VERSION_LESS 4.9)
-    set(CPP11_FLAG "-std=c++1y")
-  else()
-    set(CPP11_FLAG "-std=c++14")
-  endif()
-else()
-  set(CPP11_FLAG "-std=c++14")
-endif()
+#  if(GCC_VERSION VERSION_LESS 4.9)
+#    set(CPP11_FLAG "-std=c++1y")
+#  else()
+#    set(CPP11_FLAG "-std=c++14")
+#  endif()
+#else()
+#  set(CPP11_FLAG "-std=c++14")
+#endif()
 
 if(MSVC)
   add_definitions(/W4 /w14545 /w34242 /w34254 /w34287 /w44263 /w44265 /w44296 /w44311 /w44826 /we4289 /w14546 /w14547 /w14549 /w14555 /w14619 /w14905 /w14906 /w14928)
@@ -304,11 +305,12 @@ add_library(parser STATIC static_libs/chaiscript_parser.cpp)
 
 add_library(chaiscript MODULE src/chaiscript_stdlib_module.cpp)
 set_target_properties(chaiscript PROPERTIES 
-                                 OUTPUT_NAME chaiscript_stdlib-${CHAI_VERSION}
-                     )
+                                 OUTPUT_NAME chaiscript_stdlib-${CHAI_VERSION})
+set_target_properties(chaiscript PROPERTIES
+                                 INTERFACE_LINK_LIBRARIES Threads::Threads) 
 target_link_libraries(chaiscript ${LIBS})
 #if ( !CMAKE_HOST_WIN32 )
-    target_link_libraries(chaiscript Threads::Threads)
+#    target_link_libraries(chaiscript Threads::Threads)
 #endif()
 
 
