@@ -174,9 +174,9 @@ if(NOT MINGW)
   find_library(READLINE_LIBRARY NAMES readline PATH /usr/lib /usr/local/lib /opt/local/lib)
 endif()
 
-if (UNIX)
+#if (UNIX)
    find_package(Threads REQUIRED)
-endif()
+#endif()
 
 if (UNIX AND NOT APPLE)
   find_program(VALGRIND NAMES valgrind PATH /usr/bin /usr/local/bin)
@@ -307,9 +307,9 @@ set_target_properties(chaiscript PROPERTIES
                                  OUTPUT_NAME chaiscript_stdlib-${CHAI_VERSION}
                      )
 target_link_libraries(chaiscript ${LIBS})
-if ( !CMAKE_HOST_WIN32 )
+#if ( !CMAKE_HOST_WIN32 )
     target_link_libraries(chaiscript Threads::Threads)
-endif()
+#endif()
 
 
 set(CHAISCRIPT_LIBS stdlib parser)
