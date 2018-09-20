@@ -306,12 +306,12 @@ add_library(parser STATIC static_libs/chaiscript_parser.cpp)
 add_library(chaiscript MODULE src/chaiscript_stdlib_module.cpp)
 set_target_properties(chaiscript PROPERTIES 
                                  OUTPUT_NAME chaiscript_stdlib-${CHAI_VERSION})
-set_target_properties(chaiscript PROPERTIES
-                                 INTERFACE_LINK_LIBRARIES Threads::Threads) 
+#set_target_properties(chaiscript PROPERTIES
+#                                 INTERFACE_LINK_LIBRARIES Threads::Threads) 
 target_link_libraries(chaiscript ${LIBS})
-#if ( !CMAKE_HOST_WIN32 )
-#    target_link_libraries(chaiscript Threads::Threads)
-#endif()
+if ( !CMAKE_HOST_WIN32 )
+    target_link_libraries(chaiscript Threads::Threads)
+endif()
 
 
 set(CHAISCRIPT_LIBS stdlib parser)
